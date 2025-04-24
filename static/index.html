@@ -38,8 +38,8 @@
             line-height: 1.5;
         }
 
-        .user { color: #4ea1ff; }
-        .bot { color: #7dff7a; }
+        .You { color: #FFFF; }
+        .Chatty { color: #4ea1ff; }
 
         #controls {
             width: 90%;
@@ -104,14 +104,14 @@
             input.value = "";
             chatBox.scrollTop = chatBox.scrollHeight;
 
-            const response = await fetch("http://localhost:8000/chat", {
+            const response = await fetch("/chat", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ messages }),
             });
 
             const data = await response.json();
-            chatBox.innerHTML += `<div class="message bot"><strong>Bot:</strong> ${data.reply}</div>`;
+            chatBox.innerHTML += `<div class="message Chatty"><strong>Chatty:</strong> ${data.reply}</div>`;
             messages.push({ role: "assistant", content: data.reply });
             chatBox.scrollTop = chatBox.scrollHeight;
         }
@@ -124,7 +124,7 @@
             const formData = new FormData();
             formData.append("file", file);
 
-            const response = await fetch("http://localhost:8000/upload", {
+            const response = await fetch("/upload", {
                 method: "POST",
                 body: formData
             });

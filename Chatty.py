@@ -6,6 +6,8 @@ from openai import AzureOpenAI
 from fastapi import File, UploadFile
 from faq_data import FAQ
 from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
+
 
 
 load_dotenv()
@@ -27,8 +29,15 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 # Serve your frontend
-app.mount("/", StaticFiles(directory="static", html=True), name="static")
+@app.get("/")
+def read_index():
+    return FileResponse('static/index.html')
+
+
+app.mount("/static", StaticFiles(directory="static", html=True), name="static")
+
 
 @app.post("/chat")
 async def chat(request: Request):
