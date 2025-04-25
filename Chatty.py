@@ -14,7 +14,7 @@ load_dotenv()
 
 client = AzureOpenAI(
     api_key=os.getenv("AZURE_OPENAI_KEY"),
-    api_version="2023-12-01-preview",
+    api_version="2024-12-01-preview",
     azure_endpoint="https://mju64-m9usb3dg-eastus2.cognitiveservices.azure.com/"
 )
 
@@ -64,8 +64,3 @@ async def chat(request: Request):
 async def upload_file(file: UploadFile = File(...)):
     content = await file.read()
     return {"message": f"Received file: {file.filename}, size: {len(content)} bytes"}
-
-@app.post("/voice")
-async def transcribe_audio(audio: UploadFile = File(...)):
-    audio_data = await audio.read()
-    return {"text": "This is a mock transcription of your audio."}
